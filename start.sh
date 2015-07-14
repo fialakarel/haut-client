@@ -14,6 +14,8 @@ cd /home/pi/haut-client
 git pull &>>$log
 
 # run client in screen
-screen -S 'haut-client' -d -m ./haut-client.py
+( screen -S 'haut-client' -d -m ./haut-client.py ) &
+
+exit 0
 
 

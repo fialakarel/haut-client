@@ -8,7 +8,6 @@ sleep 10 ;
 
 # logs
 log="/home/pi/haut-client-start.log"
-log2="/home/pi/haut-client.log"
 printf "\n\n===== `date` =====\n" >>$log
 
 # go to 
@@ -18,7 +17,7 @@ cd /home/pi/haut-client
 git pull &>>$log
 
 # run client in screen
-( screen -S 'haut-client' -d -m "./haut-client.py | tee -a $log2" ) &
+( screen -S 'haut-client' -d -m ./haut-client.py ) &
 
 exit 0
 

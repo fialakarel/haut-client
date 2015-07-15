@@ -6,7 +6,7 @@
 # wait for boot
 sleep 10 ;
 
-# clear log
+# logs
 log="/home/pi/haut-client-start.log"
 log2="/home/pi/haut-client.log"
 printf "\n\n===== `date` =====\n" >>$log

@@ -8,7 +8,7 @@ sleep 10 ;
 
 # clear log
 log="/home/pi/haut-client-start.log"
->$log
+printf "\n\n===== `date` =====\n">>$log
 
 # go to 
 cd /home/pi/haut-client

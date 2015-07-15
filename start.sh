@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# author: Karel Fiala
+# email: fiala.karel@gmail.com
+
 # wait for boot
 sleep 10 ;
 

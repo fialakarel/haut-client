@@ -15,6 +15,9 @@ from mod.config import *
 
 net = Network(CLIENT_LISTEN_IP, CLIENT_LISTEN_PORT)
 
+
+net.send('{"hook": "login"}', "main.haut.local", 5556)
+
 try:
     while True:
         # receive data
@@ -45,4 +48,7 @@ try:
         os.system("./mod/" + cmd + " " + arg + " &")
 
 except KeyboardInterrupt:
+    net.send('{"hook": "logout"}', "main.haut.local", 5556)
     sys.exit(0)
+
+net.send('{"hook": "failure"}', "main.haut.local", 5556)

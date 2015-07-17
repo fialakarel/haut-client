@@ -16,8 +16,7 @@ from datetime import datetime
 
 net = Network(CLIENT_LISTEN_IP, CLIENT_LISTEN_PORT)
 
-
-net.send('{"key": "status", "value": "login"}', "main.haut.local", 5556)
+net.send({"key": "status", "value": "login"}, "main.haut.local", 5556)
 
 try:
     while True:
@@ -51,7 +50,7 @@ try:
         os.system("./mod/" + cmd + " " + arg + " &")
 
 except KeyboardInterrupt:
-    net.send('{"key": "status", "value": "logout"}', "main.haut.local", 5556)
+    net.send({"key": "status", "value": "logout"}, "main.haut.local", 5556)
     sys.exit(0)
 
-net.send('{"key": "status", "value": "failure"}', "main.haut.local", 5556)
+net.send({"key": "status", "value": "failure"}, "main.haut.local", 5556)

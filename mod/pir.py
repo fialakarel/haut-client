@@ -11,9 +11,15 @@ from network import Network
 from config import *
 import RPi.GPIO as io
 
-net = Network()
+processname = 'pir.py'
+tmp = os.popen("ps -Af").read()
+proccount = tmp.count(processname)
 
-temp_sensor = "/sys/bus/w1/devices/" + str(sys.argv[1]) + "/w1_slave"
+if proccount > 0:
+    print("PIR already running -> exiting")
+    sys.exit(1)
+
+net = Network()
 
 io.setmode(io.BCM)
 pir_pin = int(sys.argv[1])

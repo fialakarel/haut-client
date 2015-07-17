@@ -12,10 +12,10 @@ from config import *
 import RPi.GPIO as io
 
 processname = './mod/pir.py'
-tmp = os.popen("ps -aux").read()
+tmp = os.popen("ps -au").read()
 proccount = tmp.count(processname)
 
-if proccount > 0:
+if proccount > 1:
     print("PIR already running -> exiting")
     sys.exit(1)
 

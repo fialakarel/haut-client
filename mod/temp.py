@@ -20,7 +20,8 @@ from config import *
 net = Network()
 
 data = dict()
-data["temp"] = 3050
+data["key"] = "temp1"
+data["value"] = "3050"
 #print(sys.argv[0] + ": " + "funguju")
 
 net.send(data, "main.haut.local", SERVER_PORT)

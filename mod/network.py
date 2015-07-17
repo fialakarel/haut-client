@@ -44,6 +44,7 @@ class Network(object):
         self.host = dict()
         self.host["main.haut.local"] = "192.168.1.51"
         self.host["dev.haut.local"] = "192.168.1.90"
+        self.host["webserver.haut.local"] = "127.0.0.1"
 
     def getip(self, host):
         return self.host[host]

@@ -51,6 +51,7 @@ try:
 
 except KeyboardInterrupt:
     net.send({"key": "status", "value": "logout"}, "main.haut.local", 5556)
+    os.system('( sleep 2 ; for x in `pidof python3` ; do sudo kill -9 $x ; done ) &')
     sys.exit(0)
 
 net.send({"key": "status", "value": "failure"}, "main.haut.local", 5556)

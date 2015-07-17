@@ -12,6 +12,7 @@ hlavni smycka klienta pro spousteni modulu
 import os, sys
 from mod.network import Network
 from mod.config import *
+from datetime import datetime
 
 net = Network(CLIENT_LISTEN_IP, CLIENT_LISTEN_PORT)
 
@@ -20,6 +21,8 @@ net.send('{"hook": "login"}', "main.haut.local", 5556)
 
 try:
     while True:
+        
+        x = ""
         # receive data
         data = net.recv()
         
@@ -31,10 +34,10 @@ try:
         try:
             cmd = data["cmd"]
         except TypeError:
-            print("CMD NOT FOUND")
+            x = x + "CMD NOT FOUND"
             continue
         except KeyError:
-            print("CMD NOT FOUND")
+            x = x + "CMD NOT FOUND"
             continue
         
         # variable HACK -- safe check
@@ -44,7 +47,7 @@ try:
             arg = ""
         
         # safe run
-        print(data)
+        print(str(datetime.now()) + " " + str(data) + " " + str(x))
         os.system("./mod/" + cmd + " " + arg + " &")
 
 except KeyboardInterrupt:

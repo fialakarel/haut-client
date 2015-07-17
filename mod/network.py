@@ -29,10 +29,7 @@ class Network(object):
 
     def __init__(self, ip = "", port = 0):
         
-        # define IP -- DNS too slow and fails often
-        self.host = dict()
-        self.host["main.haut.local"] = "192.168.1.51"
-        self.host["dev.haut.local"] = "192.168.1.90"
+        self.createdns()
         
         self.server = False;
         self.addr = False;
@@ -41,6 +38,20 @@ class Network(object):
             self.sock.bind((ip, port)) # jen server
             self.server = True;
         pass
+
+    def createdns(self):
+        # define IP -- DNS too slow and fails often
+        self.host = dict()
+        self.host["main.haut.local"] = "192.168.1.51"
+        self.host["dev.haut.local"] = "192.168.1.90"
+
+    def getip(self, host):
+        return self.host[host]
+    
+    def gethost(self, ip):
+        for value, key in self.host.items():
+            if key == ip:
+                return value
 
     def send(self, message, host, port):
         try:

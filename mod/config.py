@@ -5,7 +5,7 @@
 
 # config
 
-SERVER_IP = "127.0.0.1"
+SERVER_IP = "192.168.1.51"
 SERVER_PORT = 5556
 
 CLIENT_LISTEN_IP = "0.0.0.0"

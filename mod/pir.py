@@ -11,8 +11,8 @@ from network import Network
 from config import *
 import RPi.GPIO as io
 
-processname = 'pir.py'
-tmp = os.popen("ps -Af").read()
+processname = './mod/pir.py'
+tmp = os.popen("ps -aux").read()
 proccount = tmp.count(processname)
 
 if proccount > 0:

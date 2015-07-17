@@ -23,4 +23,4 @@ data = dict()
 data["temp"] = 3050
 print(sys.argv[0] + ": " + "funguju")
 
-net.send(data, SERVER_IP , SERVER_PORT)
+net.send(data, "main.haut.local", SERVER_PORT)

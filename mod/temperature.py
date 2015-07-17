@@ -24,6 +24,6 @@ while True:
     data["temp"] = 2750
     print(sys.argv[0] + ": " + "funguju")
     
-    net.send(data, SERVER_IP , SERVER_PORT)
+    net.send(data, "main.haut.local" , SERVER_PORT)
     
     time.sleep(float(sys.argv[2]))

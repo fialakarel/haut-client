@@ -17,7 +17,7 @@ from datetime import datetime
 net = Network(CLIENT_LISTEN_IP, CLIENT_LISTEN_PORT)
 
 
-net.send('{"hook": "login"}', "main.haut.local", 5556)
+net.send('{"key": "hook", "value": "login"}', "main.haut.local", 5556)
 
 try:
     while True:
@@ -51,7 +51,7 @@ try:
         os.system("./mod/" + cmd + " " + arg + " &")
 
 except KeyboardInterrupt:
-    net.send('{"hook": "logout"}', "main.haut.local", 5556)
+    net.send('{"key": "hook", "value": "logout"}', "main.haut.local", 5556)
     sys.exit(0)
 
-net.send('{"hook": "failure"}', "main.haut.local", 5556)
+net.send('{"key": "hook", "value": "failure"}', "main.haut.local", 5556)

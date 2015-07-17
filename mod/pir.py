@@ -11,11 +11,8 @@ from network import Network
 from config import *
 import RPi.GPIO as io
 
-processname = './mod/pir.py'
-tmp = os.popen("ps -au").read()
-proccount = tmp.count(processname)
-
-if proccount > 1:
+# check if already running
+if ((os.popen("ps au").read()).count('./mod/pir.py')) > 1:
     print("PIR already running -> exiting")
     sys.exit(1)
 

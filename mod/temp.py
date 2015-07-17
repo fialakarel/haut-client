@@ -21,6 +21,6 @@ net = Network()
 
 data = dict()
 data["temp"] = 3050
-print(sys.argv[0] + ": " + "funguju")
+#print(sys.argv[0] + ": " + "funguju")
 
 net.send(data, "main.haut.local", SERVER_PORT)

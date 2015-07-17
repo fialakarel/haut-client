@@ -33,6 +33,6 @@ if temp_output != -1:
 
 
 data = dict()
-data["key"] = "temp"
+data["key"] = str(sys.argv[1])
 data["value"] = temp_c
 net.send(data, "main.haut.local" , SERVER_PORT)

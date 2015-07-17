@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/python
 
 # author: Karel Fiala
 # email: fiala.karel@gmail.com

@@ -1,0 +1,3 @@
+gpio.py a podobne zpusobuje velky load a zpozdeni diky startu
+	-> prepracovat jako moduly, ktere klient jen zavola?
+

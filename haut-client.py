@@ -10,11 +10,14 @@ hlavni smycka klienta pro spousteni modulu
 """
 
 import os, sys
-from mod.network import Network
-from mod.config import *
+from network import Network
 from datetime import datetime
+from modules import *
+import threading
 
-net = Network(CLIENT_LISTEN_IP, CLIENT_LISTEN_PORT)
+net = Network("0.0.0.0", 5555)
+
+SERVER_PORT = 5556
 
 net.send({"key": "status", "value": "login"}, "main.haut.local", 5556)
 
@@ -47,7 +50,8 @@ try:
         
         # safe run
         print(str(datetime.now()) + " " + str(data) + " " + str(x))
-        os.system("./mod/" + cmd + " " + arg + " &")
+        #os.system("./mod/" + cmd + " " + arg + " &")
+        (threading.Thread(target=cmd, args=(arg))).start()
 
 except KeyboardInterrupt:
     net.send({"key": "status", "value": "logout"}, "main.haut.local", 5556)

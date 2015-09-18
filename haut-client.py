@@ -44,14 +44,17 @@ try:
         
         # variable HACK -- safe check
         try:
-            arg = data["arg"]
+            arg = tuple(data["arg"].split(' '))
         except KeyError:
             arg = ""
         
         # safe run
-        print(str(datetime.now()) + " " + str(data) + " " + str(x))
+        print(str(datetime.now()) + " " + str(data) + " " + str(x)) 
         #os.system("./mod/" + cmd + " " + arg + " &")
-        (threading.Thread(target=cmd, args=(arg))).start()
+        if arg[0] == '':
+            (threading.Thread(target=eval(cmd))).start()
+        else:
+            (threading.Thread(target=eval(cmd), args=arg )).start()
 
 except KeyboardInterrupt:
     net.send({"key": "status", "value": "logout"}, "main.haut.local", 5556)

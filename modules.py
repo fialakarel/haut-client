@@ -19,19 +19,31 @@ import RPi.GPIO as io
 io.setmode(io.BCM)
 
 net = Network()
+SERVER_PORT = 5556
+
+mem = dict()
 
 def status():
-    net = Network()
     data = dict()
     data["key"] = "status"
     data["value"] = os.popen("uptime").read()
     net.send(data, "main.haut.local" , SERVER_PORT)
 
     
-def fade(pin, fro, to, step=3, sleep=0.1):
-    for x in range(fro, int(to*100), step):
+def fade(pin, fro, to, step=2, sleep=0.05):
+    pin=int(pin)
+    fro=float(fro)
+    to=float(to)
+    step=float(step)
+    sleep=float(sleep)
+    
+    if fro > to and step > 0:
+        step = step * -1
+    
+    for x in range(int(fro*100), int(to*100), int(step)):
         os.system("echo " + str(pin) + "=" + str(float(x)/100) + ">/dev/pi-blaster")
         time.sleep(sleep)
+    time.sleep(sleep)
     os.system("echo " + str(pin) + "=" + str(to) + ">/dev/pi-blaster")
 
     
@@ -67,12 +79,27 @@ def temperature(temp_id):
 
 
     data = dict()
-    data["key"] = str(sys.argv[1])
+    data["key"] = temp_id
     data["value"] = temp_c
     net.send(data, "main.haut.local" , SERVER_PORT)
 
 
-def pir(pir_pin):
+def pir(pin):
+    global mem
+    
+    try:
+        if mem["pir"][pin]:
+            return
+    except KeyError:
+        pass
+    
+    try:
+        mem["pir"][pin] = True
+    except KeyError:
+        mem["pir"] = dict()
+        mem["pir"][pin] = True        
+    
+    pir_pin = int(pin)
     io.setup(pir_pin, io.IN)         # activate input
 
     data = dict()
@@ -93,4 +120,4 @@ def pir(pir_pin):
                 data["value"] = state
                 net.send(data, "main.haut.local" , SERVER_PORT)
         
-        time.sleep(0.1)
+        time.sleep(0.05)

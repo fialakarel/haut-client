@@ -13,13 +13,13 @@ class xxx(object):
 import sys, os
 import time
 from network import Network
+from config import *
 import RPi.GPIO as io
 
 # settings
 io.setmode(io.BCM)
 
 net = Network()
-SERVER_PORT = 5556
 
 mem = dict()
 
@@ -27,34 +27,34 @@ def status():
     data = dict()
     data["key"] = "status"
     data["value"] = os.popen("uptime").read()
-    net.send(data, "main.haut.local" , SERVER_PORT)
+    net.send(data, SERVER_IP , SERVER_PORT)
 
-    
+
 def fade(pin, fro, to, step=2, sleep=0.05):
     pin=int(pin)
     fro=float(fro)
     to=float(to)
     step=float(step)
     sleep=float(sleep)
-    
+
     if fro > to and step > 0:
         step = step * -1
-    
+
     for x in range(int(fro*100), int(to*100), int(step)):
         os.system("echo " + str(pin) + "=" + str(float(x)/100) + ">/dev/pi-blaster")
         time.sleep(sleep)
     time.sleep(sleep)
     os.system("echo " + str(pin) + "=" + str(to) + ">/dev/pi-blaster")
 
-    
+
 def blaster(pin, val):
     os.system("echo " + str(pin) + "=" + str(val) + ">/dev/pi-blaster")
 
 
 # true / false
 def gpio(pin, val):
-    io.setup(pin, io.OUT)         # activate input
-    io.output(pin, val)
+    io.setup(int(pin), io.OUT)         # activate input
+    io.output(int(pin), int(val))
 
 
 def temperature(temp_id):
@@ -81,24 +81,24 @@ def temperature(temp_id):
     data = dict()
     data["key"] = temp_id
     data["value"] = temp_c
-    net.send(data, "main.haut.local" , SERVER_PORT)
+    net.send(data, SERVER_IP , SERVER_PORT)
 
 
 def pir(pin):
     global mem
-    
+
     try:
         if mem["pir"][pin]:
             return
     except KeyError:
         pass
-    
+
     try:
         mem["pir"][pin] = True
     except KeyError:
         mem["pir"] = dict()
-        mem["pir"][pin] = True        
-    
+        mem["pir"][pin] = True
+
     pir_pin = int(pin)
     io.setup(pir_pin, io.IN)         # activate input
 
@@ -107,17 +107,17 @@ def pir(pin):
 
     state = io.input(pir_pin)
     data["value"] = state
-    net.send(data, "main.haut.local" , SERVER_PORT)
-    
+    net.send(data, SERVER_IP , SERVER_PORT)
+
     while True:
         if io.input(pir_pin) != state:
             if state == 0:
                 state = 1
                 data["value"] = state
-                net.send(data, "main.haut.local" , SERVER_PORT)
+                net.send(data, SERVER_IP , SERVER_PORT)
             else:
                 state = 0
                 data["value"] = state
-                net.send(data, "main.haut.local" , SERVER_PORT)
-        
+                net.send(data, SERVER_IP , SERVER_PORT)
+
         time.sleep(0.05)

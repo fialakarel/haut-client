@@ -7,11 +7,11 @@
 sleep 10 ;
 
 # logs
-log="/home/pi/haut-client-start.log"
+log="/root/haut-client-start.log"
 printf "\n\n===== `date` =====\n" >>$log
 
 # go to 
-cd /home/pi/haut-client
+cd /root/haut-client
 
 # update client
 git pull &>>$log
